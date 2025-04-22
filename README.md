@@ -24,7 +24,14 @@ A Full Stack Education Portal built to streamline question paper management acro
 - 🎯 Clean dashboard with user-specific content
 
 ---
+## Setup
 
+- Clone the Repository
+- Install Node
+- Install Dependencies (npm install)
+- Run the project using the command (node index.js)
+
+---
 ### Home Page
 ![HomePage](https://github.com/user-attachments/assets/fb05c8fc-b8b4-47ec-991b-15f42c62a4aa)
 
