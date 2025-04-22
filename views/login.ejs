@@ -10,39 +10,6 @@
   <script src="/js/Login.js"></script>
 
   <link rel="stylesheet" href="css/style.css">
-  <!-- <script>
-    console.log("Inline jQuery script loaded");
-  
-    $(document).ready(function () {
-  console.log("jQuery ready!");
-
-  $('#LoginForm').on('submit', function (e) {
-    console.log("Login form submitted!");
-
-    // Show flash message
-    $('#flash-message')
-      .removeClass('d-none alert-danger')
-      .addClass('alert-success')
-      .text('Login successfully!')
-      .fadeIn();
-
-    setTimeout(() => {
-      $('#flash-message').fadeOut();
-    }, 3000);
-
-    // Do NOT prevent default here unless you're handling login via AJAX
-    // Let the form submit to /login which should handle redirect to homeStudent.ejs
-  });
-
-  $('#togglePassword').on('click', function () {
-    const passwordInput = $('#password');
-    const type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
-    passwordInput.attr('type', type);
-    $(this).toggleClass('fa-eye fa-eye-slash');
-  });
-});
-
-  </script> -->
   
 </head>
 <body>
@@ -53,10 +20,10 @@
         <img src="images/cmr-logo.png" alt="CMR Logo" style="height: 50px;">
       </div>
       <div class="nav-links">
-        <a href="/student-register" class="nav-link" style="font-size: 12px;">
+        <a href="/register-student" class="nav-link" style="font-size: 12px;">
           <i class="fa fa-user"></i> Student Register
         </a>
-        <a href="/teacher-register" class="nav-link" style="font-size: 12px;">
+        <a href="/register-teacher" class="nav-link" style="font-size: 12px;">
           <i class="fa fa-user"></i> Faculty Register
         </a>
       </div>
@@ -115,27 +82,3 @@
   
   </body>
 </html>
-
-
-    <!-- Right Login Form
-    <div class="right-pane">
-      <form id="LoginForm" class="login-form border p-4 rounded shadow bg-white" method="post" action="/login">
-        <h3 class="mb-4 text-center">Login</h3>
-        
-        <div class="mb-3">
-          <input type="email" id="Email" name="Email" class="form-control" placeholder="Email" required>
-        </div>
-        
-        <div class="mb-3 position-relative">
-          <input type="password" id="password" name="password" class="form-control pe-5" placeholder="Password" required>
-          <i class="fa fa-eye position-absolute top-50 end-0 translate-middle-y me-3" id="togglePassword" style="cursor: pointer;"></i>
-        </div>
-        
-        <button type="submit" class="btn btn-success w-100">Login</button>
-        
-        <div class="text-center mt-3">
-          <a href="/reset-password" style="color: black;">Forgot Password</a>
-        </div>
-      </form>
-    </div>
-  </div> -->

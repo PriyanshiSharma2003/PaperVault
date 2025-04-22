@@ -1,5 +1,5 @@
 const schoolCourses = {
-  soet: ['BTech Computer Science', 'BTech Civil', 'BTech Electronics', 'BTech AI & ML', 'BTech Data Science'],
+  soet: ['BTech CS', 'BTech COE', 'BTech ECE', 'BTech ME'],
   som: ['BBA', 'BCom', 'MCom', 'MBA'],
   sscs: ['BCA', 'MCA', 'BSc', 'MSc'],
   sol: ['LLM', 'LLB', 'BALLB', 'BBALLB']
@@ -7,7 +7,7 @@ const schoolCourses = {
 
 const courseSemesters = {
   'BCA': 6, 'BSc': 6, 'MCA': 4, 'MSc': 4,
-  'BTech Computer Science': 8, 'BTech Civil': 8, 'BTech Electronics': 8, 'BTech AI & ML': 8, 'BTech Data Science': 8,
+  'BTech CS': 8, 'BTech COE': 8, 'BTech ECE': 8, 'BTech ME': 8,
   'MBA': 4, 'MCom': 4, 'BBA': 6, 'BCom': 6,
   'BALLB': 10, 'BBALLB': 10, 'LLB': 6, 'LLM': 4
 };
@@ -40,7 +40,27 @@ $(document).ready(function () {
     dropdownAutoWidth: true,
     width: '100%',
     dropdownParent: $('.bg-dark'),
-    dropdownPosition: 'below' // This forces dropdown to open downward
+    dropdownPosition: 'below'
   });
+
+
+  $('#searchBtn').off('click').on('click', function() {
+    const $btn = $(this);
+    $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Searching...');
+    
+    const school = $('#schoolDropdown').val(); 
+    const course = $('#courseDropdown').val(); 
+    const semester = $('#semesterDropdown').val(); 
+    
+    if (school && course && semester) {
+        const branchEncoded = encodeURIComponent(course); 
+        
+        window.location.href = `/semester/${school.toUpperCase()}/${branchEncoded}/${semester}`;
+    } else {
+        alert('Please select school, course, and semester');
+        $btn.prop('disabled', false).text('Search');
+    }
+});
+
 });
 

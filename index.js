@@ -48,11 +48,11 @@ app.get('/', (req, res) => {
     if (req.session.userType === 'teacher') {
         return res.redirect('/home-teacher');
     }
-    res.render('home'); // Make sure you have home.ejs in views folder
+    res.render('home'); 
 });
 
 app.get('/login', (req, res) => {
-    res.render('login'); // Make sure you have login.ejs in views folder
+    res.render('login'); 
 });
 
 app.get('/reset-password', (req, res) => {
@@ -63,16 +63,15 @@ app.get('/home-student', (req, res) => {
     if (!req.session.userType || req.session.userType !== 'student') {
         return res.redirect('/login');
     }
-    res.render('homeStudent', { session: req.session }); // <-- pass session
+    res.render('homeStudent', { session: req.session }); 
 });
 
 
 app.get('/home-teacher', (req, res) => {
-    // console.log("Teacher session:", req.session); // Add this
     if (!req.session.userType || req.session.userType !== 'teacher') {
         return res.redirect('/login');
     }
-    res.render('homeTeacher', { session: req.session }); // <-- pass session
+    res.render('homeTeacher', { session: req.session }); 
 });
 
 
@@ -83,6 +82,14 @@ app.get('/logout', (req, res) => {
             return res.redirect('/');
         }
         res.redirect('/login');
+    });
+});
+
+app.get('/register-student', (req, res) => {
+    res.render('studentRegister', { 
+        message: null,
+        status: null,
+        formData: {}
     });
 });
 
@@ -120,6 +127,15 @@ app.post('/register-student', (req, res) => {
         });
     });
 });
+
+app.get('/register-teacher', (req, res) => {
+    res.render('teacherRegister', { 
+        message: null,
+        status: null,
+        formData: {}
+    });
+});
+
 
 app.post('/register-teacher', (req, res) => {
     const { tName, tSchool, Email, password } = req.body;
@@ -250,7 +266,6 @@ app.post('/login', (req, res) => {
 app.post('/reset-password', (req, res) => {
     const { Email, newPassword } = req.body;
     
-    // Try student first
     const sqlStudent = 'UPDATE StudentLogin SET stuPassword = ? WHERE Email = ?';
     db.query(sqlStudent, [newPassword, Email], (err, result) => {
         if (err) {
@@ -269,7 +284,6 @@ app.post('/reset-password', (req, res) => {
             });
         }
 
-        // Try teacher if student not found
         const sqlTeacher = 'UPDATE TeacherLogin SET tPassword = ? WHERE Email = ?';
         db.query(sqlTeacher, [newPassword, Email], (err2, result2) => {
             if (err2) {
@@ -301,184 +315,150 @@ app.get('/course-som', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('som', { session: req.session }); // <-- pass session
+    res.render('som', { session: req.session }); 
 });
 
 app.get('/course-sol', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sol', { session: req.session }); // <-- pass session
+    res.render('sol', { session: req.session }); 
 });
 app.get('/course-soet', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('soet', { session: req.session }); // <-- pass session
+    res.render('soet', { session: req.session }); 
 });
 app.get('/course-sscs', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sscs', { session: req.session }); // <-- pass session
+    res.render('sscs', { session: req.session }); 
 });
 
 app.get('/course-sscs-bca', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sscs-bca', { session: req.session }); // <-- pass session
+    res.render('sscs-bca', { session: req.session }); 
 });
 
 app.get('/course-sscs-bsc', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sscs-bsc', { session: req.session }); // <-- pass session
+    res.render('sscs-bsc', { session: req.session }); 
 });
 
 app.get('/course-sscs-mca', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sscs-mca', { session: req.session }); // <-- pass session
+    res.render('sscs-mca', { session: req.session }); 
 });
 
 app.get('/course-sscs-msc', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sscs-msc', { session: req.session }); // <-- pass session
+    res.render('sscs-msc', { session: req.session }); 
 });
 
 app.get('/course-som-bba', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('som-bba', { session: req.session }); // <-- pass session
+    res.render('som-bba', { session: req.session }); 
 });
 
 app.get('/course-som-bcom', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('som-bcom', { session: req.session }); // <-- pass session
+    res.render('som-bcom', { session: req.session }); 
 });
 
 app.get('/course-som-mba', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('som-mba', { session: req.session }); // <-- pass session
+    res.render('som-mba', { session: req.session }); 
 });
 
 app.get('/course-som-mcom', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('som-mcom', { session: req.session }); // <-- pass session
+    res.render('som-mcom', { session: req.session }); 
 });
 
 app.get('/course-sol-bballb', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sol-bballb', { session: req.session }); // <-- pass session
+    res.render('sol-bballb', { session: req.session }); 
 });
 
 app.get('/course-sol-ballb', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sol-ballb', { session: req.session }); // <-- pass session
+    res.render('sol-ballb', { session: req.session }); 
 });
 
 app.get('/course-sol-llb', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sol-llb', { session: req.session }); // <-- pass session
+    res.render('sol-llb', { session: req.session }); 
 });
 
 app.get('/course-sol-llm', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('sol-llm', { session: req.session }); // <-- pass session
+    res.render('sol-llm', { session: req.session }); 
 });
 
 app.get('/course-soet-btech-coe', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('soet-btechCOE', { session: req.session }); // <-- pass session
+    res.render('soet-btechCOE', { session: req.session }); 
 });
 
 app.get('/course-soet-btech-ece', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('soet-btechECE', { session: req.session }); // <-- pass session
+    res.render('soet-btechECE', { session: req.session }); 
 });
 
 app.get('/course-soet-btech-me', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('soet-btechME', { session: req.session }); // <-- pass session
+    res.render('soet-btechME', { session: req.session }); 
 });
 
 app.get('/course-soet-btech-cs', (req, res) => {
     if (!req.session.userType || (req.session.userType !== 'student' && req.session.userType !== 'teacher')) {
         return res.redirect('/login');
     }
-    res.render('soet-btechCS', { session: req.session }); // <-- pass session
+    res.render('soet-btechCS', { session: req.session }); 
 });
-
-
-// app.get('/semester/:school/:branch/:semesterNumber', (req, res) => {
-//     const { school, branch, semesterNumber } = req.params;
-
-//     const query = `
-//         SELECT pYear, pSubject, pFile
-//         FROM PaperRecords 
-//         WHERE pSchool = ? AND pBranch = ? AND pSemester = ?
-//         ORDER BY uploadDate DESC
-//     `;
-
-//     db.query(query, [school.toUpperCase(), branch.toUpperCase(), semesterNumber], (err, results) => {
-//         if (err) {
-//             console.error('❌ DB Error:', err);
-//             return res.status(500).send("Internal Server Error");
-//         }
-
-//         console.log("SESSION:", req.session);
-
-//         res.render('semesterDashboard', {
-//             school: school.toUpperCase(),
-//             branch: branch.toUpperCase(),
-//             semesterNumber,
-//             papers: results,
-//             successMessage: req.flash('success'),
-//             // successMessage,
-//             session: req.session
-//         });
-//     });
-// });
-
 
 
 
   function fetchPapersFromDatabase(school, branch, semester) {
     return new Promise((resolve, reject) => {
-        // SQL query to fetch papers for the given school, branch, and semester
         const query = `
             SELECT pSubject, pYear, pFile
             FROM PaperRecords
             WHERE pSchool = ? AND pBranch = ? AND pSemester = ?
             ORDER BY pYear DESC;`;
 
-        // Execute the query
         db.query(query, [school, branch, semester], (err, results) => {
             if (err) {
                 reject(err);
@@ -492,20 +472,18 @@ app.get('/course-soet-btech-cs', (req, res) => {
 app.get('/semester/:school/:branch/:semesterNumber', (req, res) => {
     const { school, branch, semesterNumber } = req.params;
 
-    // Fetch papers from the database
     fetchPapersFromDatabase(school, branch, semesterNumber)
         .then((papers) => {
-            // Group papers by year
+
             const groupedPapers = papers.reduce((acc, paper) => {
                 const year = paper.pYear;
                 if (!acc[year]) {
-                    acc[year] = []; // Initialize as an array if not already present
+                    acc[year] = [];
                 }
                 acc[year].push(paper);
                 return acc;
             }, {});
 
-            // Render the page with grouped papers
             res.render('semesterDashboard', {
                 school: school.toUpperCase(),
                 branch: branch.toUpperCase(),
@@ -521,46 +499,44 @@ app.get('/semester/:school/:branch/:semesterNumber', (req, res) => {
         });
 });
 
-app.get('/semesterDashboard/:school/:branch/:semesterNumber', (req, res) => {
+//Route to Search paper
+app.get('/semester/:school/:branch/:semesterNumber', (req, res) => {
     const { school, branch, semesterNumber } = req.params;
-    res.render('semesterDashboard', { school, branch, semesterNumber,successMessage: req.flash('success'), });
-  });
+    
+    const decodedBranch = decodeURIComponent(branch); 
+    
+    const query = `
+        SELECT pSubject, pYear, pFile
+        FROM PaperRecords
+        WHERE UPPER(pSchool) = UPPER(?)
+          AND REPLACE(pBranch, '-', ' ') = ?  
+          AND pSemester = ?
+        ORDER BY pYear DESC
+    `;
+    
+    db.query(query, [school, decodedBranch, semesterNumber], (err, results) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).send('Error fetching papers');
+        }
+        
+        // Group papers by year
+        const groupedPapers = results.reduce((acc, paper) => {
+            const year = paper.pYear.toString();
+            if (!acc[year]) acc[year] = [];
+            acc[year].push(paper);
+            return acc;
+        }, {});
 
-// app.get('/semester/:school/:branch/:semester', (req, res) => {
-//     const { school, branch, semester } = req.params;
-
-//     // Fetch papers from the database
-//     fetchPapersFromDatabase(school, branch, semester)
-//         .then((papers) => {
-//             // Group papers by year
-//             const groupedPapers = papers.reduce((acc, paper) => {
-//                 const year = paper.pYear;
-//                 if (!acc[year]) {
-//                     acc[year] = []; // Initialize as an array if not already present
-//                 }
-//                 acc[year].push(paper);
-//                 return acc;
-//             }, {});
-
-//             console.log(groupedPapers); // Log the grouped papers for debugging
-            
-//             // Render the page with grouped papers
-//             res.render('semesterDashboard', {
-//                 school,
-//                 branch,
-//                 papers: groupedPapers,
-//                 semesterNumber: semester,
-//                 session: req.session
-//             });
-//         })
-//         .catch((err) => {
-//             console.error(err);
-//             res.status(500).send('Error fetching papers from the database');
-//         });
-// });
-
-
-
+        res.render('semesterDashboard', {
+            school: school.toUpperCase(),
+            branch: decodedBranch,
+            semesterNumber,
+            papers: groupedPapers,
+            session: req.session
+        });
+    });
+});
 
 // Start server
 const PORT = process.env.PORT || 3000;
