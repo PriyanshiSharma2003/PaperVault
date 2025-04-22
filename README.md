@@ -1,6 +1,6 @@
 # 📚 PaperVault
 
-**PaperVault** is a Full Stack Education Portal designed for managing and sharing question papers across departments. It supports **student and teacher login**, **secure uploads**, **semester-wise browsing**, and role-based dashboards.
+A Full Stack Education Portal built to streamline question paper management across departments. Supports secure student/teacher logins, semester-wise paper browsing, and role-based dashboards with seamless file uploads/downloads.
 
 ---
 
