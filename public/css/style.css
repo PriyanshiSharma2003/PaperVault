@@ -1,0 +1,332 @@
+/* Home.ejs Style */
+
+/* Import Open Sans from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+/* Main Navigation Bar Styles */
+.main-nav {
+    background-color: #ECF0F1;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.main-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.nav-brand img {
+    height: 50px;
+    position:relative;
+    right: 130px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+.nav-links .nav-link {
+    color: #41484D;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 11.2px;
+    padding: relative;
+    left: 3000px;
+    right: 500px;
+}
+  
+.nav-links .nav-link:hover {
+    color: #2C3E50;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-nav .container {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .nav-links {
+        margin-top: 10px;
+    }
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: none;
+}
+
+.bnr_btm_icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 60px; 
+    height: auto;
+}
+
+body {
+    margin: 0;
+    font-family: "GeneralSans-Regular", sans-serif;
+  }
+
+  .announcement_sec {
+    background-color: #00B6AD;
+    color: #212529;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .announcement_sec p {
+    color: #FFFFFF;
+    font-size: 16px;
+    margin: 0;
+    font-weight: bold;
+    font-family: "GeneralSans-Regular", sans-serif;
+  }
+
+  .marquee_container {
+    background-color: #EAD722;
+    padding: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee_text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+    color: #212529;
+    font-size: 15px;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+  
+  .fixed-top-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050;
+    background-color: #fff; /* Optional: add background to avoid transparency */
+    /* box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+  }
+
+  .custom-section {
+    padding: 50px;
+  }
+
+  .custom-section h2 {
+    color: #009688;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .custom-section h3 {
+    font-weight: 500;
+    color: #212121;
+    text-align: left;
+    margin-bottom: 30px;
+  }
+
+  .content-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+
+  .text-column {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .text-column p {
+    text-align: left;
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 0;
+  }
+
+  .icons-row {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon-box {
+    text-align: center;
+    max-width: 120px;
+  }
+
+  .icon-box img {
+    height: 80px;
+    margin-bottom: 10px;
+  }
+
+  .icon-box h5 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #222;
+  }
+
+  @media (max-width: 768px) {
+    .content-row {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .text-column p,
+    .custom-section h2,
+    .custom-section h3 {
+      text-align: center;
+    }
+
+    .icons-row {
+      flex-direction: column;
+    }
+  }
+
+/* login.ejs Style */
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .main-container {
+    display: flex;
+    height: 92.3vh;
+    background-image: url('/images/cmr-login-logo.jpg');
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(2px);
+  }
+
+  .left-pane {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+  }
+
+  .left-pane h2 {
+    color: #009688;
+    font-weight: 700;
+  }
+
+  .left-pane p {
+    text-align: justify;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .right-pane {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+  }
+
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  #flash-message {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+  }
+
+/* teacherRegister.ejs */
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  
+/* homeStudent */
+.form-select {
+    min-width: 200px;
+  }
+
+  .school-card {
+    transition: transform 0.3s ease;
+    text-align: center;
+  }
+
+  .school-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .school-card h5 {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+  }
+
+  .school-card h5::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #28a745; /* green */
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .school-card:hover h5::after {
+    transform: scaleX(1);
+  }
+
+/* homeTeacher.ejs */
+select.form-select {
+  height: 45px;
+  font-size: 14px;
+}
+
+.btn-success {
+  height: 45px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid white;
+}
+

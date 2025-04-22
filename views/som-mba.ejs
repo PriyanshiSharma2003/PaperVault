@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOM MBA Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="fixed-top-container">
+    <div class="announcement_sec">
+      <p>ANNOUNCEMENTS</p>
+    </div>
+
+    <div class="marquee_container">
+      <div class="marquee_text">
+        BTech 6 Semester Paper Jan 2025 Added | BCA 1 Semester Paper Jan 2025 Added
+      </div>
+    </div>
+
+    <nav class="main-nav bg-light py-2 shadow-sm">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="nav-brand">
+          <img src="images/cmr-logo.png" alt="CMR Logo" style="height: 50px;">
+        </div>
+        <div class="nav-links">
+          <% if (session.userEmail) { %>
+            <a href="/logout" class="nav-link">
+              <i class="fa fa-sign-out-alt"></i> LOGOUT
+            </a>
+          <% } else { %>
+            <a href="/login" class="nav-link">
+              <i class="fa fa-user"></i> LOGIN
+            </a>
+          <% } %>          
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="video-container position-relative">
+    <img src="images/cmrHome.jpg" alt="CMR Home" class="img-fluid w-100" style="object-fit: cover; height: 500px;">
+    Your browser doesn't support the image tag
+    <!-- Overlay Icon -->
+    <img class="bnr_btm_icon position-absolute" src="https://www.cmr.edu.in/wp-content/themes/cmr_university/files/images/bnr_btm_icon.png" alt="Banner Icon" style="bottom: 20px; right: 20px;">
+  </div>
+
+
+<!-- SOM Semesters Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="fw-bold text-uppercase text-left mb-4"> 
+      <span class="mb-1 text-success">SOM</span> - MBA
+    </h2>
+
+    <div class="row justify-content-center">
+
+      <% const semesters = ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4']; %>
+      <% const school = 'SOM'; const branch = 'MBA'; %>
+      <% semesters.forEach((sem, index) => { %>
+        <div class="col-md-3 mb-4">
+          <a href="/semester/<%= school %>/<%= branch %>/<%= index + 1 %>" class="text-decoration-none">
+            <div class="p-4 bg-white shadow-sm rounded border border-light hover-shadow text-center">
+              <h4 class="mb-1 text-success"><%= sem %></h4>
+              <p class="mb-0 text-muted">Explore question papers & materials</p>
+            </div>
+          </a>
+        </div>
+      <% }) %>
+
+    </div>
+  </div>
+</section>
+
+
+</body>
+</html>

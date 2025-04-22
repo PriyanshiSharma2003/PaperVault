@@ -1,0 +1,148 @@
+<!-- views/semesterDashboard.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= school %> - <%= branch %> Semester <%= semesterNumber  %> Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+  <script src="/js/semesterDashboard.js"></script>
+</head>
+<body>
+
+  <!-- Fixed top header (Announcement + Marquee + Navbar) -->
+  <div class="fixed-top-container">
+    <div class="announcement_sec">
+      <p>ANNOUNCEMENTS</p>
+    </div>
+
+    <div class="marquee_container">
+      <div class="marquee_text">
+        BTech 6 Semester Paper Jan 2025 Added | BCA 1 Semester Paper Jan 2025 Added
+      </div>
+    </div>
+
+    <nav class="main-nav bg-light py-2 shadow-sm">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="nav-brand">
+          <img src="/images/cmr-logo.png" alt="CMR Logo" style="height: 50px;">
+        </div>
+        <div class="nav-links">
+          <% if (session.userEmail) { %>
+            <a href="/logout" class="nav-link">
+              <i class="fa fa-sign-out-alt"></i> LOGOUT
+            </a>
+          <% } else { %>
+            <a href="/login" class="nav-link">
+              <i class="fa fa-user"></i> LOGIN
+            </a>
+          <% } %>          
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="video-container position-relative mt-5 pt-4">
+    <img src="/images/cmrHome.jpg" alt="CMR Home" class="img-fluid w-100" style="object-fit: cover; height: 500px;">
+    Your browser doesn't support the image tag
+    <!-- Overlay Icon -->
+    <img class="bnr_btm_icon position-absolute" src="https://www.cmr.edu.in/wp-content/themes/cmr_university/files/images/bnr_btm_icon.png" alt="Banner Icon" style="bottom: 20px; right: 20px;">
+  </div>
+
+<!-- Semester Content -->
+<div class="container py-5">
+  <h2 class="text-center text-success mb-4">
+    <%= school %> - <%= branch %> | Semester <%= semesterNumber %>
+  </h2>
+
+  <div class="accordion" id="papersAccordion">
+    <% if (Object.keys(papers).length === 0) { %>
+      <div class="alert alert-warning text-center">No papers uploaded yet.</div>
+    <% } else { %>
+      <% Object.keys(papers).forEach(year => { %>
+        <div class="accordion-item mb-3">
+          <h2 class="accordion-header" id="heading<%= year %>">
+            <button class="accordion-button bg-light" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#collapse<%= year %>" aria-expanded="true" 
+                    aria-controls="collapse<%= year %>">
+              <%= year %>
+            </button>
+          </h2>
+          <div id="collapse<%= year %>" class="accordion-collapse collapse hide" 
+               aria-labelledby="heading<%= year %>" data-bs-parent="#papersAccordion">
+            <div class="accordion-body">
+              <% if (!Array.isArray(papers[year]) || papers[year].length === 0) { %>
+                <p class="text-muted">No papers available for <%= year %>.</p>
+              <% } else { %>
+                <div class="row g-4">
+                  <% papers[year].forEach(paper => { %>
+                    <div class="col-md-6 col-lg-4">
+                      <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                          <h5 class="card-title text-success"><%= paper.pSubject %></h5>
+                          <div class="d-flex justify-content-between mt-3">
+                            <a href="/uploads/<%= paper.pFile %>" target="_blank" 
+                               class="btn btn-outline-primary btn-sm">
+                              <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="/uploads/<%= paper.pFile %>" download 
+                               class="btn btn-outline-secondary btn-sm">
+                              <i class="fas fa-download"></i> Download
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% }) %>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+  
+      <br>
+  <!-- Upload Paper (if teacher) -->
+  <% if (session.userType === 'teacher') { %>
+    <div class="mb-2">
+      <h4 class="mb-3">Upload New Paper</h4>
+      <form action="/uploadPaper" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="school" value="<%= school %>">
+        <input type="hidden" name="branch" value="<%= branch %>">
+        <input type="hidden" name="semester" value="<%= semesterNumber %>">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-3">
+            <input type="text" name="subject" class="form-control" placeholder="Subject Name" required>
+          </div>
+          <div class="col-md-2">
+            <input type="text" name="year" class="form-control" placeholder="Year (e.g. 2024)" required>
+          </div>
+          <div class="col-md-4">
+            <input type="file" name="paperFile" class="form-control" accept=".pdf" required>
+          </div>
+          <div class="col-md-3">
+            <button type="submit" class="btn btn-success w-100">Upload Paper</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  <% } %>
+
+</div>
+     <!-- Back button -->
+     <div class="text-center mt-2">
+      <a href="javascript:history.back()" class="btn btn-outline-secondary">← Back</a>
+    </div>
+  
+
+</body>
+</html>
