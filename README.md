@@ -48,6 +48,10 @@ A Full Stack Education Portal built to streamline question paper management acro
 ![ResetPasswordPage](https://github.com/user-attachments/assets/25d8713d-ee87-4275-981b-81e4d05762a9)
 
 ---
+### Login Page
+![image](https://github.com/user-attachments/assets/d19388b4-a82a-4172-af75-0278c6806113)
+
+---
 ### Student / Faculty Dashboard Page 1
 ![StudentDashboardPage1](https://github.com/user-attachments/assets/6400fe08-4da8-42f8-8ec7-983170c480e7)
 
