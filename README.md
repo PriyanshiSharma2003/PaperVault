@@ -21,6 +21,7 @@ A Full Stack Education Portal built to streamline question paper management acro
 - 📂 School > Branch > Semester-based navigation
 - ✅ Flash success messages for user feedback
 - 📥 Dynamic file handling and display
+- 📥 Display dynamic announcements upon paper upload
 - 🎯 Clean dashboard with user-specific content
 
 ---
@@ -33,7 +34,7 @@ A Full Stack Education Portal built to streamline question paper management acro
 
 ---
 ### Home Page
-![HomePage](https://github.com/user-attachments/assets/fb05c8fc-b8b4-47ec-991b-15f42c62a4aa)
+![HomePage](https://github.com/user-attachments/assets/4d2230c7-a768-4dd3-a265-d48e74da8cbd)
 
 ---
 ### Student Registration Page
@@ -49,7 +50,7 @@ A Full Stack Education Portal built to streamline question paper management acro
 
 ---
 ### Login Page
-![image](https://github.com/user-attachments/assets/d19388b4-a82a-4172-af75-0278c6806113)
+![LoginPage](https://github.com/user-attachments/assets/eba78762-f166-48ba-82ac-91e79124abc7)
 
 ---
 ### Student / Faculty Dashboard Page 1
