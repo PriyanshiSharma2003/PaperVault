@@ -23,6 +23,27 @@ app.use(session({
     }
 }));
 
+app.use((req, res, next) => {
+    const announcementQuery = `
+      SELECT pBranch, pSemester, pYear,  pSubject
+      FROM PaperRecords
+      ORDER BY uploadDate DESC
+      LIMIT 3`;
+  
+    db.query(announcementQuery, (err, results) => {
+      if (err) {
+        console.error("Announcement fetch error:", err);
+        res.locals.announcements = ['Failed to load announcements'];
+      } else {
+        res.locals.announcements = results.map(paper => {
+          return `${paper.pBranch} ${paper.pSemester} ${paper.pSubject} ${paper.pYear} Paper Added`;
+        });
+      }
+      next();
+    });
+  });
+  
+
 const uploadRoutes = require('./routes/upload');
 app.use('/', uploadRoutes); 
 
@@ -40,7 +61,6 @@ app.use((req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-    console.log("Session userType:", req.session.userType);
     
     if (req.session.userType === 'student') {
         return res.redirect('/home-student');
@@ -78,7 +98,7 @@ app.get('/home-teacher', (req, res) => {
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
         if (err) {
-            console.log('Logout error:', err);
+            // console.log('Logout error:', err);
             return res.redirect('/');
         }
         res.redirect('/login');
@@ -102,7 +122,7 @@ app.post('/register-student', (req, res) => {
 
     db.query(sql1, [regno, stdName, stdSchool, stdBranch, Email], (err1, result1) => {
         if (err1) {
-            console.error("Student register error:", err1);
+            // console.error("Student register error:", err1);
             return res.render('studentRegister', { 
                 message: 'Registration failed!', 
                 status: 'danger',
@@ -112,7 +132,7 @@ app.post('/register-student', (req, res) => {
 
         db.query(sql2, [Email, password], (err2, result2) => {
             if (err2) {
-                console.error("Student login creation error:", err2);
+                // console.error("Student login creation error:", err2);
                 return res.render('studentRegister', { 
                     message: 'Login details could not be saved!', 
                     status: 'danger',
@@ -145,7 +165,7 @@ app.post('/register-teacher', (req, res) => {
 
     db.query(sql1, [tName, tSchool, Email], (err1, result1) => {
         if (err1) {
-            console.error("Teacher register error:", err1);
+            // console.error("Teacher register error:", err1);
             return res.render('teacherRegister', { 
                 message: 'Registration failed!', 
                 status: 'danger',
@@ -155,7 +175,7 @@ app.post('/register-teacher', (req, res) => {
 
         db.query(sql2, [Email, password], (err2, result2) => {
             if (err2) {
-                console.error("Teacher login creation error:", err2);
+                // console.error("Teacher login creation error:", err2);
                 return res.render('teacherRegister', { 
                     message: 'Login details could not be saved!', 
                     status: 'danger',
@@ -187,7 +207,7 @@ app.post('/login', (req, res) => {
         const sql = 'SELECT * FROM StudentLogin WHERE Email = ? AND stuPassword = ?';
         db.query(sql, [Email, password], (err, result) => {
             if (err) {
-                console.error("Student login error:", err);
+                // console.error("Student login error:", err);
                 return res.render('login', { 
                     message: 'Server error!', 
                     status: 'danger',
@@ -200,7 +220,7 @@ app.post('/login', (req, res) => {
                 req.session.userEmail = Email;
                 req.session.save(err => {
                     if (err) {
-                        console.error("Session save error:", err);
+                        // console.error("Session save error:", err);
                         return res.render('login', { 
                             message: 'Session error!', 
                             status: 'danger',
@@ -222,7 +242,7 @@ app.post('/login', (req, res) => {
         const sql = 'SELECT * FROM TeacherLogin WHERE Email = ? AND tPassword = ?';
         db.query(sql, [Email, password], (err, result) => {
             if (err) {
-                console.error("Teacher login error:", err);
+                // console.error("Teacher login error:", err);
                 return res.render('login', { 
                     message: 'Server error!', 
                     status: 'danger',
@@ -235,7 +255,7 @@ app.post('/login', (req, res) => {
                 req.session.userEmail = Email;
                 req.session.save(err => {
                     if (err) {
-                        console.error("Session save error:", err);
+                        // console.error("Session save error:", err);
                         return res.render('login', { 
                             message: 'Session error!', 
                             status: 'danger',
@@ -269,7 +289,7 @@ app.post('/reset-password', (req, res) => {
     const sqlStudent = 'UPDATE StudentLogin SET stuPassword = ? WHERE Email = ?';
     db.query(sqlStudent, [newPassword, Email], (err, result) => {
         if (err) {
-            console.error("Student password reset error:", err);
+            // console.error("Student password reset error:", err);
             return res.render('resetPassword', { 
                 message: 'Error occurred!', 
                 status: 'danger',
@@ -287,7 +307,7 @@ app.post('/reset-password', (req, res) => {
         const sqlTeacher = 'UPDATE TeacherLogin SET tPassword = ? WHERE Email = ?';
         db.query(sqlTeacher, [newPassword, Email], (err2, result2) => {
             if (err2) {
-                console.error("Teacher password reset error:", err2);
+                // console.error("Teacher password reset error:", err2);
                 return res.render('resetPassword', { 
                     message: 'Error occurred!', 
                     status: 'danger',
@@ -538,8 +558,9 @@ app.get('/semester/:school/:branch/:semesterNumber', (req, res) => {
     });
 });
 
+
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port http://localhost:${PORT}`);
 });
