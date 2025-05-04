@@ -1,11 +1,8 @@
-// public/uploads/upload.js  ❌ Wrong place
-// Move it to: routes/upload.js ✅
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const db = require('../database/db'); // ✅ fix path to DB
+const db = require('../database/db'); 
 
 // Multer configuration
 const storage = multer.diskStorage({
