@@ -16,13 +16,25 @@ app.use(flash());
 app.use(session({
     secret: 'yourSecretKey',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { 
         secure: false, 
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
 }));
 
+// Middleware
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+
+// Session debugging middleware
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
+
+// Announcement Section
 app.use((req, res, next) => {
     const announcementQuery = `
       SELECT pBranch, pSemester, pYear,  pSubject
@@ -44,19 +56,9 @@ app.use((req, res, next) => {
   });
   
 
+//   Upload Paper Section -> to got routes folder for upload.js
 const uploadRoutes = require('./routes/upload');
 app.use('/', uploadRoutes); 
-
-// Middleware
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// Session debugging middleware
-app.use((req, res, next) => {
-    res.locals.session = req.session;
-    next();
-});
 
 
 // Routes
